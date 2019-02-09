@@ -162,6 +162,11 @@ public class RamString implements WackyStringInterface {
 		int atIndex = 0;
 		int pdIndex = 0;
 
+		// if two "." in a row return false
+		if(email.contains("..")){
+			valid = false;
+		}
+
 		// if no "@" inside email return false
 		if(email.indexOf("@") == -1){
 			valid = false;
@@ -237,12 +242,61 @@ public class RamString implements WackyStringInterface {
 		
 		String str = getWackyString();
 
-		// replace the double zeros first so
-		// we don't mistakenly count them as two
-		// single zeros
+		for (int i = 0; i < str.length(); i++){
 
-		str = str.replace("00", "VCU");
-		str = str.replace("0", "Rams");
+			if ( (0 < i) && (i < str.length()-1)){
+
+				// single zero , check that indexes before and after i do not equal zero
+				if (str.charAt(i) == '0' && !(str.charAt(i+1) == '0') && !(str.charAt(i-1) == '0') ){
+					str = str.substring(0, i) + "Rams" + str.substring(i+1, str.length());
+				}
+
+				// double zero, checks that indexes before and after i do not equal zero
+				if (str.charAt(i) == '0' && (str.charAt(i+1) == '0') && !(str.charAt(i-1) == '0')){
+
+					// if third spot is possible, check for third spot
+					if ( (i+2) < str.length() -1){
+						if (!(str.charAt(i+2) == '0')){
+							str = str.substring(0, i) + "VCU" + str.substring(i+2, str.length());
+						}
+
+					} else {
+						str = str.substring(0, i) + "VCU" + str.substring(i+2, str.length());
+					}
+				}
+			}
+
+			if ( i == 0){
+				// single zero , check that indexes before and after i do not equal zero
+				if (str.charAt(i) == '0' && !(str.charAt(i+1) == '0') ){
+					str = str.substring(0, i) + "Rams" + str.substring(i+1, str.length());
+				}
+
+				if ( (i+2) < str.length() -1){
+					// double zero, checks that indexes before and after i do not equal zero
+					if (str.charAt(i) == '0' && (str.charAt(i+1) == '0') &&  !(str.charAt(i+2) == '0')  ){
+						str = str.substring(0, i) + "VCU" + str.substring(i+2, str.length());
+					}
+				}
+			}
+
+			if ( (i == str.length()-1)){
+
+				// single zero , check that indexes before and after i do not equal zero
+				if (str.charAt(i) == '0' && !(str.charAt(i-1) == '0') ){
+					str = str.substring(0, i) + "Rams" + str.substring(i+1, str.length());
+				}
+
+
+				if ( (i+2) < str.length() -1){
+					// double zero, checks that indexes before and after i do not equal zero
+					if (str.charAt(i) == '0' && !(str.charAt(i-1) == '0') ){
+						str = str.substring(0, i) + "VCU" + str.substring(i+2, str.length());
+					}
+				}
+			}
+
+		}
 
 		setWackyString(str);
 	}
@@ -251,12 +305,12 @@ public class RamString implements WackyStringInterface {
 	public void convertDigitsToRomanNumeralsInSubstring(int x,int y){
 
 	}
-	/*
+
 	public static void main(String[] args) {
-		RamString str = new RamString("00 0 00 0");
-		ramifyString();
-		System.out.println(getWackyString());
+		RamString str = new RamString("00 00 000 00 0000 0 00");
+		str.ramifyString();
+		System.out.println(str.getWackyString());
 	}
-	*/
+
 
 }

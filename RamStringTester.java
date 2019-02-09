@@ -623,6 +623,30 @@ public class RamStringTester {
 		testCount++;
 	}
 
+	public void testIsValidEmail9(){
+		myString.setWackyString("2periods2@gmail..com");
+
+		System.out.println("----- Test isValidEmail() (9) -----");
+		System.out.println("RamString: '" + myString.getWackyString() + "'");
+		System.out.println("Expected: false");
+		boolean expected = false;
+
+		boolean result = myString.isValidEmail();
+		System.out.println("Result: " + result);
+
+		if (expected == result){
+			System.out.println("Passed Test!");
+			passCount++;
+		} else {
+			System.out.println("Failed Test!");
+			failCount++;
+		}
+
+		System.out.println("");
+		resetString();
+		testCount++;
+	}
+
 	public void testRamifyString1(){
 		myString.setWackyString("00 0 00");
 
@@ -649,8 +673,8 @@ public class RamStringTester {
 
 		System.out.println("----- Test ramifyString() (2) -----");
 		System.out.println("RamString: '" + myString.getWackyString() + "'");
-		System.out.println("Expected: 'VCU Rams VCU'");
-		String expected = "VCU Rams VCU";
+		System.out.println("Expected: '00000 VCU'");
+		String expected = "00000 VCU";
 
 		myString.ramifyString();
 		String result = myString.getWackyString();
@@ -707,6 +731,7 @@ public class RamStringTester {
 		tester.testIsValidEmail6();
 		tester.testIsValidEmail7();
 		tester.testIsValidEmail8();
+		tester.testIsValidEmail9();
 
 		System.out.println("--------- TEST RAMIFY STRING ----------");
 		System.out.println("Replace 00 with VCU and 0 with Rams.\n");
