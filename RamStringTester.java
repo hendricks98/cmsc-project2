@@ -1,4 +1,23 @@
+/*
+Jamel Hendricks
+02/09/2019
+CMSC 256 - Project 2
 
+The purpose of this program is to test each method in the RamString class.
+Each method of the RamString class is tested multiple times with various inputs
+that a user may attempt to pass to a RamString object.
+
+Each test consists/prints the following:
+	1) set the string to a suitable input
+	2) print the string before the test
+	3) print the expected output
+	4) run the test
+	5) print the resultant output
+	6) decide whether the test was passed or failed
+
+At the end of all of the tests, a summary is printed displaying
+a total of all tests, passed and failed
+*/
 
 public class RamStringTester {
 

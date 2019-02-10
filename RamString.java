@@ -1,4 +1,8 @@
-
+/*
+Jamel Hendricks
+02/09/2019
+CMSC 256 - Project 2
+*/
 
 public class RamString implements WackyStringInterface {
 
