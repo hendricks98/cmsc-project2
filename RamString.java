@@ -4,36 +4,46 @@ public class RamString implements WackyStringInterface {
 
 	private String current;
 
+
+	// constructor for ramstring
+	// parameter "s" is passed to set the RamString object value
 	public RamString(String s) {
 		setWackyString(s);
 	} 
 
+	// sets RamSTring value to paramater "s"
 	public void setWackyString(String s){
 		current = s;
 	}
 
-	
+	// returns the String attribute of RamString
 	public String getWackyString(){
 		return current;
 	}
 
+	// return the even indexed characters of the RamString
 	public String getEvenCharacters(){
 
 		String even = "";
 
+		// if string is null return
 		if (getWackyString() == (null)){
 			return "String is null.";
 		}
 
+		// if string is empty return
 		if (getWackyString().equals("")){
 			return "No characters in string.";
 		}
 
+		// split each char of the string into an array "word"
 		String word[] = getWackyString().split("");
 
 		// index 0 counts as position 1 which is odd
 		// index 1 counts as position 2 which is even
 
+		// for each char in "word", if in an even position
+		// add the char to the string "even"
 		int position = 1;
 		for (String letter : word){
 			
@@ -49,6 +59,7 @@ public class RamString implements WackyStringInterface {
 		return even;
 	}
 
+	// return the even indexed characters of the RamString
 	private String getEvenCharacters(String s){
 
 		String word[] = s.split("");
@@ -56,6 +67,8 @@ public class RamString implements WackyStringInterface {
 		// index 0 counts as position 1 which is odd
 		// index 1 counts as position 2 which is even
 
+		// for each char in "word", if in an even position
+		// add the char to the string "even"
 		int position = 1;
 		String even = "";
 		for (String letter : word){
@@ -71,6 +84,8 @@ public class RamString implements WackyStringInterface {
 		return even;
 	}
 
+	// return the odd indexed characters of the RamString
+	// return type is a string so "String is null." is returned
 	public String getOddCharacters(){
 		String odd = "";
 
@@ -87,6 +102,8 @@ public class RamString implements WackyStringInterface {
 		// index 0 counts as position 1 which is odd
 		// index 1 counts as position 2 which is even
 
+		// for each char in "word", if in an odd position
+		// add the char to the string "odd"
 		int position = 0;
 		for (String letter : word){
 
@@ -102,6 +119,7 @@ public class RamString implements WackyStringInterface {
 		return odd;
 	}
 
+	// return the odd indexed characters of the RamString
 	private String getOddCharacters(String s){
 
 		String word[] = s.split("");
@@ -109,6 +127,8 @@ public class RamString implements WackyStringInterface {
 		// index 0 counts as position 1 which is odd
 		// index 1 counts as position 2 which is even
 
+		// for each char in "word", if in an odd position
+		// add the char to the string "odd"
 		int position = 0;
 		String odd = "";
 		for (String letter : word){
@@ -125,8 +145,10 @@ public class RamString implements WackyStringInterface {
 		return odd;
 	}
 
+	// count each of the non digit char in a string
 	public int countNonDigits(){
 
+		// return a "0" if string is null
 		if (getWackyString() == (null)){
 			return 0;
 		}
@@ -135,12 +157,15 @@ public class RamString implements WackyStringInterface {
 		int numDigits = 0;
 		int nonDigits = word.length();
 
+		// for each char in the word, check if digit
+		// and at to counter if so
 		for (int i = 0; i < word.length(); i++){
 			if (Character.isDigit(word.charAt(i))){
 				numDigits = numDigits + 1;
 			}
 		}
 
+		// find the number of non-digits
 		nonDigits = nonDigits - numDigits;
 
 		return nonDigits;
@@ -148,7 +173,7 @@ public class RamString implements WackyStringInterface {
 	}
 
 	
-
+	// returns true if string is a valid email
 	public boolean isValidEmail(){
 		/* only true if following conditions met:
 			1) one or more characters before @
@@ -156,11 +181,23 @@ public class RamString implements WackyStringInterface {
 			3) one or more characters after .
 		*/
 
+		// assume email is valid until proven otherwise
 		boolean valid = true;
 
 		String email = getWackyString();
 		int atIndex = 0;
 		int pdIndex = 0;
+
+		// if email is empty or null
+		if(email == null){
+			valid = false;
+			return valid;
+		}
+
+		// if no text in string, invalid
+		if (email.equals("")){
+			valid = false;
+		}
 
 		// if two "." in a row return false
 		if(email.contains("..")){
@@ -170,13 +207,11 @@ public class RamString implements WackyStringInterface {
 		// if no "@" inside email return false
 		if(email.indexOf("@") == -1){
 			valid = false;
-			//System.out.println("no @");
 		}
 
 		// if there is more than one @ return false
 		if (!(email.indexOf("@") == (email.lastIndexOf("@"))) ){
 			valid = false;
-			//System.out.println("too many @");
 		}
 			
 		atIndex = email.indexOf("@");
@@ -184,13 +219,11 @@ public class RamString implements WackyStringInterface {
 		// if no "." inside email return false
 		if(email.indexOf(".") == (-1)){
 			valid = false;
-			//System.out.println("no '.'");
 		}
 
 		// check if '.' is after the @
 		if (!(email.lastIndexOf(".") > atIndex)){
 			valid = false;
-			//System.out.println(" '.' isn't after the '@'");
 		}
 
 		pdIndex = email.lastIndexOf(".");
@@ -205,7 +238,6 @@ public class RamString implements WackyStringInterface {
 
 		if (!(beforeAtCount >= 1)){
 			valid = false;
-			//System.out.println("not enough characters before '@'");
 		}
 
 		// check for chars before between '@' and '.'
@@ -216,7 +248,6 @@ public class RamString implements WackyStringInterface {
 
 		if (!(inBetweenCount >= 1)){
 			valid = false;
-			//System.out.println("not enough characters in between '@' and '.'");
 		}
 
 		// check for chars after '.'
@@ -227,23 +258,27 @@ public class RamString implements WackyStringInterface {
 
 		if (!(afterPdCount >= 1)){
 			valid = false;
-			//System.out.println("not enough characters after '.'");
 		}
-
-		//System.out.println("atIndex: " + atIndex);
-		//System.out.println("pdIndex: " + pdIndex);
 
 		return valid;
 	}
 
 	
-
+	// change single and double zeroes in string to Rams or VCU
 	public void ramifyString(){
 		
 		String str = getWackyString();
 
+		// if string is null return
+		if (str == null){
+			System.out.println("String is null.");
+			return;
+		}
+
+		// iterate through each char of the string
 		for (int i = 0; i < str.length(); i++){
 
+			// check for chars in the middle part of the string
 			if ( (0 < i) && (i < str.length()-1)){
 
 				// single zero , check that indexes before and after i do not equal zero
@@ -266,6 +301,7 @@ public class RamString implements WackyStringInterface {
 				}
 			}
 
+			// check the first char of the string
 			if ( i == 0){
 				// single zero , check that indexes before and after i do not equal zero
 				if (str.charAt(i) == '0' && !(str.charAt(i+1) == '0') ){
@@ -280,6 +316,7 @@ public class RamString implements WackyStringInterface {
 				}
 			}
 
+			// check the last char of the string
 			if ( (i == str.length()-1)){
 
 				// single zero , check that indexes before and after i do not equal zero
@@ -302,15 +339,91 @@ public class RamString implements WackyStringInterface {
 	}
 
 	
+	// convert digits 1-9 to roman numerals
+	// ** does not include 0, there is no roman numeral for 0 (natural numbers only) **
 	public void convertDigitsToRomanNumeralsInSubstring(int x,int y){
+		String str = getWackyString();
+		
+		// if string is null return
+		if (str == null){
+			System.out.println("String is null.");
+			return;
+		}
+
+		// check if passed range is legal
+		try{
+			if (x > y){
+				throw new IllegalArgumentException();
+			}
+		} catch (IllegalArgumentException e) {
+			System.out.println("Invalid character interval.");
+			return;
+		}
+
+		// check if passed range is legal
+		try{
+			if (x < 0 || y > str.length()){
+				throw new MyIndexOutOfBoundsException();
+			}
+		} catch (MyIndexOutOfBoundsException e) {
+			System.out.println("One or more indexes out of bounds.");
+			return;
+		}
+
+		// iterate through each char in the specified range
+		for (int i = x; i <= y; i++){
+
+			char number = str.charAt(i);
+
+			// for cases where the roman numeral inserts more than one character
+			// the 'y' variable has to be modified to take account for 
+			// the additional indexes being created, not doing so would result in
+			// the possibility of some numbers not being converted
+
+			// if the current char is a digit, replace with it's roman numeral
+			if ( Character.isDigit(str.charAt(i))){
+
+				switch(number){
+					case '1': 
+						str = str.substring(0,i) + "I" + str.substring(i+1,str.length());
+						break;
+					case '2': 
+						str = str.substring(0,i) + "II" + str.substring(i+1,str.length());
+						y++;
+						break;
+					case '3': 
+						str = str.substring(0,i) + "III" + str.substring(i+1,str.length());
+						y = y +2;
+						break;
+					case '4': 
+						str = str.substring(0,i) + "IV" + str.substring(i+1,str.length());
+						y++;
+						break;
+					case '5': 
+						str = str.substring(0,i) + "V" + str.substring(i+1,str.length());
+						break;
+					case '6': 
+						str = str.substring(0,i) + "VI" + str.substring(i+1,str.length());
+						y++;
+						break;
+					case '7': 
+						str = str.substring(0,i) + "VII" + str.substring(i+1,str.length());
+						y = y+2;
+						break;
+					case '8': 
+						str = str.substring(0,i) + "VIII" + str.substring(i+1,str.length());
+						y= y+3;
+						break;
+					case '9': 
+						str = str.substring(0,i) + "IX" + str.substring(i+1,str.length());
+						y++;
+						break;
+				}
+			}
+		}
+
+		setWackyString(str);
 
 	}
-
-	public static void main(String[] args) {
-		RamString str = new RamString("00 00 000 00 0000 0 00");
-		str.ramifyString();
-		System.out.println(str.getWackyString());
-	}
-
 
 }
